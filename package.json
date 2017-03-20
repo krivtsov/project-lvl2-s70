@@ -1,0 +1,39 @@
+{
+  "name": "gendiff170320",
+  "version": "1.0.0",
+  "description": "GenDiff Project",
+  "main": "src/bin/gendiff.js",
+
+  "scripts": {
+    "babel-node": "babel-node",
+    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
+    "prepublish": "npm run build",
+    "eslint": "eslint"
+  },
+
+  "bin": {
+   "gendiff": "dist/bin/gendiff.js"
+  },
+
+  "devDependencies": {
+     "babel-cli": "*",
+     "babel-core": "*",
+     "babel-preset-env": "*",
+     "babel-preset-stage-0": "*",
+     "babel-eslint": "*",
+     "eslint": "*",
+     "eslint-config-airbnb-base": "*",
+     "eslint-plugin-import": "*"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krivtsov/project-lvl2-s70.git"
+  },
+  "author": "Sergey Krivtsov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/krivtsov/project-lvl2-s70/issues"
+  },
+  "homepage": "https://github.com/krivtsov/project-lvl2-s70#readme"
+}
