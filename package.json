@@ -1,6 +1,6 @@
 {
   "name": "gendiff170320",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "GenDiff Project",
   "main": "src/bin/gendiff.js",
   "scripts": {
