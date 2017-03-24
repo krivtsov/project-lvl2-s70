@@ -36,6 +36,7 @@
   "homepage": "https://github.com/krivtsov/project-lvl2-s70#readme",
   "dependencies": {
     "commander": "^2.9.0",
+    "js-yaml": "^3.8.2",
     "lodash": "^4.17.4"
   },
   "jest": {

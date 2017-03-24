@@ -1,7 +1,10 @@
 import logic from '../src/lib/genDiffLogic';
 
-const before = './sampleFiles/before.json';
-const after = './sampleFiles/after.json';
+const beforeJson = './sampleFiles/before.json';
+const afterJson = './sampleFiles/after.json';
+
+const beforeYml = './sampleFiles/before.yml';
+const afterYml = './sampleFiles/after.yml';
 
 const equal = `{
   host: hexlet.io
@@ -13,10 +16,14 @@ const equal = `{
 
 describe('console', () => {
   it('logs to the console', () => {
-    console.log(logic(before, after));
+    console.log(logic(beforeYml, afterYml));
   });
 });
 
-test('first test', () => {
-  expect(logic(before, after)).toBe(equal);
+test('test JSON', () => {
+  expect(logic(beforeJson, afterJson)).toBe(equal);
+});
+
+test('test YML', () => {
+  expect(logic(beforeYml, afterYml)).toBe(equal);
 });

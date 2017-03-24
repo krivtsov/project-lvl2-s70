@@ -1,7 +1,26 @@
 import fs from 'fs';
 import _ from 'lodash';
+import path from 'path';
+import yaml from 'js-yaml';
 
-const readContentsFile = file => JSON.parse(fs.readFileSync(file, 'utf8'));
+const fileExtension = file => path.extname(file);
+
+const parseJson = file => JSON.parse(fs.readFileSync(file, 'utf8'));
+
+const parseYml = file => yaml.safeLoad(fs.readFileSync(file, 'utf8'));
+
+const readContentsFile = (file) => {
+  const expr = fileExtension(file);
+  switch (expr) {
+    case '.json':
+      return parseJson(file);
+    case '.yml':
+    case '.yaml':
+      return parseYml(file);
+    default:
+      return false;
+  }
+};
 
 const toString = array => `{\n${_.join(array, '\n')}\n}`;
 
