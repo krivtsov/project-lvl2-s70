@@ -40,6 +40,10 @@
     "lodash": "^4.17.4"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "node_modules",
+      "__tests__/__fixtures__/"
+    ]
   }
 }

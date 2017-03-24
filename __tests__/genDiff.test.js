@@ -1,10 +1,10 @@
 import logic from '../src/lib/genDiffLogic';
 
-const beforeJson = './sampleFiles/before.json';
-const afterJson = './sampleFiles/after.json';
+const beforeJson = './__tests__/__fixtures__/before.json';
+const afterJson = './__tests__/__fixtures__/after.json';
 
-const beforeYml = './sampleFiles/before.yml';
-const afterYml = './sampleFiles/after.yml';
+const beforeYml = './__tests__/__fixtures__/before.yml';
+const afterYml = './__tests__/__fixtures__/after.yml';
 
 const equal = `{
   host: hexlet.io
