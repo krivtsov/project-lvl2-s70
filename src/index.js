@@ -1,5 +1,5 @@
 import program from 'commander';
-import genDiff from './genDiffLogic';
+import genDiff from './lib/genDiffLogic';
 
 export default () => {
   program
