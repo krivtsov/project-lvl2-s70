@@ -1,4 +1,4 @@
-import logic from '../src/lib/genDiffLogic';
+import genDiff from '../src/lib/genDiffLogic';
 
 const beforeJson = './__tests__/__fixtures__/before.json';
 const afterJson = './__tests__/__fixtures__/after.json';
@@ -16,14 +16,14 @@ const equal = `{
 
 describe('console', () => {
   it('logs to the console', () => {
-    console.log(logic(beforeYml, afterYml));
+    console.log(genDiff(beforeYml, afterYml));
   });
 });
 
 test('test JSON', () => {
-  expect(logic(beforeJson, afterJson)).toBe(equal);
+  expect(genDiff(beforeJson, afterJson)).toBe(equal);
 });
 
 test('test YML', () => {
-  expect(logic(beforeYml, afterYml)).toBe(equal);
+  expect(genDiff(beforeYml, afterYml)).toBe(equal);
 });

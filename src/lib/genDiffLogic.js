@@ -9,6 +9,12 @@ const parseJson = file => JSON.parse(fs.readFileSync(file, 'utf8'));
 
 const parseYml = file => yaml.safeLoad(fs.readFileSync(file, 'utf8'));
 
+const combineKeys = (before, after) => {
+  const beforeKeys = _.keys(before);
+  const afterKeys = _.keys(after);
+  return _.union(beforeKeys, afterKeys);
+};
+
 const readContentsFile = (file) => {
   const expr = fileExtension(file);
   switch (expr) {
@@ -25,25 +31,19 @@ const readContentsFile = (file) => {
 const toString = array => `{\n${_.join(array, '\n')}\n}`;
 
 const generatesDifferences = (before, after) => {
-  const differencesBefore = _.transform(before, (result, value, key) => {
-    if (value === after[key]) {
-      result.push(`  ${key}: ${value}`);
-      return result;
+  const arrayKeys = combineKeys(before, after);
+  const differencesBefore = _.reduce(arrayKeys, (result, key) => {
+    if (_.has(before, key) && _.has(after, key)) {
+      if (_.isEqual(after[key], before[key])) {
+        return _.concat(result, `  ${key}: ${before[key]}`);
+      }
+      return _.concat(result, `+ ${key}: ${after[key]}`, `- ${key}: ${before[key]}`);
+    } else if (_.has(before, key)) {
+      return _.concat(result, `- ${key}: ${before[key]}`);
     }
-    if (_.has(after, key)) {
-      result.push(`+ ${key}: ${after[key]}`);
-    }
-    result.push(`- ${key}: ${value}`);
-    return result;
+    return _.concat(result, `+ ${key}: ${after[key]}`);
   }, []);
-
-  const differencesAfter = _.transform(after, (result, value, key) => {
-    if (!_.has(before, key)) {
-      result.push(`+ ${key}: ${value}`);
-    }
-    return result;
-  }, differencesBefore);
-  return toString(differencesAfter);
+  return toString(differencesBefore);
 };
 
 export default (before, after) => {
