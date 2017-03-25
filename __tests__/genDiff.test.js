@@ -1,4 +1,4 @@
-import genDiff from '../src/lib/genDiffLogic';
+import genDiff from '../src/genDiffLogic';
 
 const beforeJson = './__tests__/__fixtures__/before.json';
 const afterJson = './__tests__/__fixtures__/after.json';
