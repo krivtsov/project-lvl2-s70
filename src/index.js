@@ -1,14 +1,41 @@
-import program from 'commander';
-import genDiff from './genDiffLogic';
+import fs from 'fs';
+import _ from 'lodash';
+import path from 'path';
+import getParser from './parsers';
 
-export default () => {
-  program
-  .version('0.0.1')
-  .description('Compares two configuration files and shows a difference.')
-  .arguments('<first_config> <second_config>')
-  .option('-f, --format [type]', 'Output format')
-  .action((first, second) => {
-    console.log(genDiff(first, second));
-  })
-  .parse(process.argv);
+const combineKeys = (before, after) => {
+  const beforeKeys = _.keys(before);
+  const afterKeys = _.keys(after);
+  return _.union(beforeKeys, afterKeys);
+};
+
+const toString = array => `{\n${_.join(array, '\n')}\n}`;
+
+const generatesDifferences = (before, after) => {
+  const arrayKeys = combineKeys(before, after);
+  const differencesBefore = _.reduce(arrayKeys, (result, key) => {
+    if (_.has(before, key) && _.has(after, key)) {
+      if (_.isEqual(after[key], before[key])) {
+        return result.concat(`  ${key}: ${before[key]}`);
+      }
+      return result.concat(`+ ${key}: ${after[key]}`, `- ${key}: ${before[key]}`);
+    } else if (_.has(before, key)) {
+      return result.concat(`- ${key}: ${before[key]}`);
+    }
+    return result.concat(`+ ${key}: ${after[key]}`);
+  }, []);
+  return toString(differencesBefore);
+};
+
+const fileExtension = file => path.extname(file);
+
+const readFile = file => fs.readFileSync(file, 'utf8');
+
+export default (before, after) => {
+  const beforeData = readFile(before);
+  const afterData = readFile(after);
+  const beforeContent = getParser(fileExtension(before))(beforeData);
+  const afterContent = getParser(fileExtension(after))(afterData);
+  const result = generatesDifferences(beforeContent, afterContent);
+  return result;
 };
