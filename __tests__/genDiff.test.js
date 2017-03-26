@@ -9,8 +9,8 @@ const afterYml = './__tests__/__fixtures__/after.yml';
 const beforeIni = './__tests__/__fixtures__/before.ini';
 const afterIni = './__tests__/__fixtures__/after.ini';
 
-const beforeJsonAttached = './__tests__/__fixtures__/attached/before.json';
-const afterJsonAttached = './__tests__/__fixtures__/attached/after.json';
+// const beforeJsonAttached = './__tests__/__fixtures__/attached/before.json';
+// const afterJsonAttached = './__tests__/__fixtures__/attached/after.json';
 
 const equal = `{
   host: hexlet.io
